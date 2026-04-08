@@ -1,0 +1,30 @@
+.input_area{
+    width: 50vw;
+    height: 49.6px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(245, 245, 245);
+    padding: 0rem 3rem;
+    outline: none;
+    font-weight: 500;
+}
+
+.input_area:focus{
+    outline: 2px solid #ffebaa;
+}
+
+
+.search_bar{
+    position: relative;
+}
+
+.search_bar::before{
+    content: "\f002";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #8f8f8f;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translatey(-50%);
+}

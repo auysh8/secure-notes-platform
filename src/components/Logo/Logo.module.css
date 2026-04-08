@@ -1,0 +1,23 @@
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon{
+    display: flex;
+    background-color: rgb(226, 194, 92);
+    border-radius: 100px;
+    padding: 0.8rem;
+    font-size: 1.5rem;
+}
+
+.minimize{
+    margin-left: auto;
+}
+
+.app_name{
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+

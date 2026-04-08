@@ -1,0 +1,146 @@
+.note_writing_view {
+    z-index: 200;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    --yellow: #Fcf7c1;
+    --red: #F8dcdc;
+    --blue: #d6e4f8;
+    --green: #dcfce7;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 0.25s ease;
+}
+
+.note_container {
+    width: 70%;
+    height: 50%;
+    background-color: var(--yellow);
+    border-radius: 20px;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.note_header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    outline: none;
+}
+
+.note_content {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    outline: none;
+    height: 100%;
+    resize: none;
+    overflow-y: scroll;
+    font-family: inherit;
+    scrollbar-width: none;
+    
+}
+
+.note_footer {
+    display: flex;
+    margin-top: auto;
+    justify-content: space-between;
+    border-top: 1px solid rgb(60, 60, 60);
+    padding-top: 1rem;
+}
+
+.note_colorpicker {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+.yellow_button {
+    color: var(--yellow);
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 3px 5px rgb(132, 132, 132);
+    transition: transform 0.2s;
+    height: 1rem;
+    width: 1rem;
+}
+
+.red_button {
+    color: var(--red);
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 3px 5px rgb(132, 132, 132);
+    transition: transform 0.2s;
+
+}
+
+.blue_button {
+    color: var(--blue);
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 3px 5px rgb(132, 132, 132);
+    transition: transform 0.2s;
+
+}
+
+.green_button {
+    color: var(--green);
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 3px 5px rgb(132, 132, 132);
+    transition: transform 0.2s;
+
+}
+
+
+.yellow_button:hover {
+    transform: scale(1.1);
+}
+
+.red_button:hover {
+    transform: scale(1.1);
+}
+
+.blue_button:hover {
+    transform: scale(1.1);
+}
+
+.green_button:hover {
+    transform: scale(1.1);
+}
+
+.done_button {
+    background-color: #fed349;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    box-shadow: 0px 5px 10px rgb(222, 222, 222);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

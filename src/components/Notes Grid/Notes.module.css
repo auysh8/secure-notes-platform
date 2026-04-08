@@ -1,0 +1,145 @@
+.note {
+    --yellow: #fcf7c1;
+    --red: #f8dcdc;
+    --blue: #d6e4f8;
+    --green: #dcfce7;
+
+    background-color: var(--yellow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    min-height: 100px;
+    max-height: 500px;
+    padding: 1.25rem;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+
+.notes_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #2f2f2f;
+}
+
+.notes_heading{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Content */
+
+.note_content {
+    flex: 1;
+    color: #4f4f4f;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow: hidden;
+    scrollbar-width: none;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+}
+
+.note_content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Footer */
+
+.note_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Meta info */
+
+.note_time_edited {
+    font-size: 0.8rem;
+    color: #6a6a6a;
+}
+
+/* Buttons */
+
+.pin_button {
+    border-radius: 50%;
+    transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.pin_button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.pin_button:active {
+    transform: scale(0.95);
+    opacity: 0.7;
+}
+
+/* Extras / Popup */
+
+.extras_container {
+    position: relative;
+    z-index: 10;
+}
+
+.popup_container {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    right: 0;
+
+    width: 8.5rem;
+    padding: 0.3rem;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.extras_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.list_item:hover {
+    background-color: #f0f0f0;
+}
+
+.archive_button,
+.trash_button,
+.restore_button,
+.permanent_delete_button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+    border-radius: 10px;
+    text-align: left;
+    align-items: center;
+}
+
+.archive_button:hover,
+.trash_button:hover,
+.restore_button:hover,
+.permanent_delete_button:hover {
+    background-color: #ebebeb;
+}

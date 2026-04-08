@@ -1,0 +1,107 @@
+/* --- 1. The Grid Container --- */
+.notesContainer {
+  /* Layout: Masonry */
+  columns: 5 240px; /* Tries to fit 5 cols, but maintains min 240px width */
+  column-gap: 20px; /* Space between columns */
+  padding: 24px;    /* Breathing room around the edges */
+  
+  /* ⚡ Centering Anchors */
+  position: relative; 
+  min-height: 80vh; /* Ensures center is vertically centered on screen */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- 2. The Individual Note Wrapper --- */
+.noteItem {
+  /* Masonry Essentials */
+  break-inside: avoid; /* Prevents notes from being cut across columns */
+  display: inline-block; /* Required for column layouts */
+  width: 100%;
+  margin-bottom: 20px; /* Bottom spacing for masonry items */
+  
+  /* Optional: Fixes slight rendering jitters in some browsers */
+  transform: translateZ(0); 
+}
+
+/* NotesGrid.module.css */
+
+/* 1. Container for the whole empty state */
+.empty_state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Centers the text lines */
+  
+  /* Animation */
+  opacity: 0;
+  animation: floatUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2. The Illustration */
+.empty_state img {
+  width: 280px;
+  height: auto;
+  margin-bottom: 1.5rem; /* Space between image and title */
+}
+
+/* 3. The Bold Title ("Your thoughts start here") */
+.empty_title {
+  font-family: 'Google Sans', sans-serif; /* Use your app's font */
+  font-size: 1.5rem;   /* Large and readable */
+  font-weight: 700;    /* Bold */
+  color: #202124;      /* Dark (Almost Black) */
+  margin: 0;           /* Remove default margins */
+  margin-bottom: 0.5rem; /* Small space before the paragraph */
+  user-select: none;
+}
+
+/* 4. The Description Paragraph */
+.empty_desc {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;     /* Standard reading size */
+  color: #5f6368;      /* Google Gray (Subtle) */
+  line-height: 1.5;    /* Makes multi-line text readable */
+  max-width: 400px;    /* ⚡ Important: prevents text from stretching too wide */
+  margin: 0;
+  user-select: none;
+}
+
+/* Animation Keyframes */
+@keyframes floatUp {
+  0% { opacity: 0; transform: translate(-50%, -45%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+
+
+/* --- 6. Responsive Breakpoints --- */
+@media (max-width: 1200px) {
+  .notesContainer { columns: 3 220px; }
+}
+
+@media (max-width: 768px) {
+  .notesContainer { 
+    columns: 2 180px; 
+    padding: 16px;
+  }
+  
+  .empty_state img {
+    width: 240px; /* Smaller image on tablets/mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .notesContainer { 
+    columns: 1 auto; /* Single column stack */
+  }
+  
+  .empty_state img {
+    width: 200px;
+  }
+}
