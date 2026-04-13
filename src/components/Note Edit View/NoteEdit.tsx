@@ -3,7 +3,7 @@ import styles from "./NoteEdit.module.css";
 import { motion } from "framer-motion"; // 1. Import Motion
 
 const NoteEdit = ({ onOpen, onNewSave, onEditedSave, onClose, layoutId }: any) => {
-  const [id] = useState(onOpen?.id || "");
+  const [id] = useState(onOpen?._id || "");
   const [title, setTitle] = useState(onOpen?.title || "");
   const [content, setContent] = useState(onOpen?.content || "");
   const [color, setColor] = useState(onOpen?.color || "");
@@ -35,7 +35,7 @@ const NoteEdit = ({ onOpen, onNewSave, onEditedSave, onClose, layoutId }: any) =
       transition={{ duration: 0.2 }} // Fast fade for background
     >
       <motion.div
-        layoutId={layoutId?.id ? `note-${layoutId.id}` : undefined}
+        layoutId={layoutId?._id ? `note-${layoutId._id}` : undefined}
         className={styles.note_container}
         onClick={(e) => e.stopPropagation()}
         style={{ backgroundColor: color }}

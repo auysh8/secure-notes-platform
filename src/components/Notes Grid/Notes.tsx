@@ -76,7 +76,7 @@ const Notes = ({
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
-            pinId(noteData.id);
+            pinId(noteData._id);
           }}
         >
           {noteData.isPinned ? (
@@ -113,7 +113,7 @@ const Notes = ({
                     {noteData.isTrashed ? (
                       <button
                         className={styles.restore_button}
-                        onClick={() => restoreId(noteData.id)}
+                        onClick={() => restoreId(noteData._id)}
                       >
                         <span>Restore</span>
                         <MdOutlineRestore size={20} color="#4f4f4fff" />
@@ -121,7 +121,7 @@ const Notes = ({
                     ) : (
                       <button
                         className={styles.archive_button}
-                        onClick={() => archiveId(noteData.id)}
+                        onClick={() => archiveId(noteData._id)}
                       >
                         {noteData.isArchived ? (
                           <span>Unarchive</span>
@@ -141,7 +141,7 @@ const Notes = ({
                     {noteData.isTrashed ? (
                       <button
                         className={styles.permanent_delete_button}
-                        onClick={() => deleteId(noteData.id)}
+                        onClick={() => deleteId(noteData._id)}
                       >
                         <span style={{ color: "#ff0000ff" }}>
                           Delete Permanently
@@ -151,7 +151,7 @@ const Notes = ({
                     ) : (
                       <button
                         className={styles.trash_button}
-                        onClick={() => trashId(noteData.id)}
+                        onClick={() => trashId(noteData._id)}
                       >
                         <span style={{ color: "#ff0000ff" }}>Trash</span>
                         <FaRegTrashAlt size={20} color="#ff0000ff" />

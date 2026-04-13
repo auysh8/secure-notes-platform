@@ -53,9 +53,9 @@ const NotesGrid = ({
       <AnimatePresence mode="popLayout">
         {notes.map((note) => (
           <motion.div
-            key={note.id}
+            key={note._id}
             layout
-            layoutId={`note-${note.id}`}
+            layoutId={`note-${note._id}`}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -68,7 +68,7 @@ const NotesGrid = ({
             className={styles.noteItem}
           >
             <Notes
-              onClick={() => onClick(note.id)}
+              onClick={() => onClick(note._id)}
               noteData={note}
               archiveId={archiveId}
               pinId={pinId}

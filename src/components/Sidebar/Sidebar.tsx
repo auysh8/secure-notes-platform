@@ -43,7 +43,7 @@ const Sidebar = ({ onClick, tab, newNote }) => {
 
     >
       <span className={styles.logo_newnote}>
-        <Logo sidebarCollapsed={isSideBarCollapsed} />
+        <Logo sidebarCollapsed={isSideBarCollapsed} setIsSidebarCollapsed={setIsSideBarCollapsed} />
         <NewNoteButton
           isSidebarCollapsed={isSideBarCollapsed}
           newNote={newNote}
