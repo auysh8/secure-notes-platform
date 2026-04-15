@@ -2,24 +2,30 @@ import styles from "./Sidebar.module.css";
 import { MdOutlineArchive } from "react-icons/md";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { animate, AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Logo from "../Logo/Logo";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import NewNoteButton from "../New Note Button/NewNoteButton";
 
-const Sidebar = ({ onClick, tab, newNote }) => {
+interface SidebarProps {
+  onClick: (value: string) => void;
+  tab: string;
+  newNote: () => void;
+}
+
+const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
   );
-  const [isLaptop, setIsLaptop] = useState(
-    window.matchMedia("(min-width : 1024px)").matches,
-  );
-  const timeRef = useRef(null);
+  // const [isLaptop, setIsLaptop] = useState(
+  //   window.matchMedia("(min-width : 1024px)").matches,
+  // );
+  // const timeRef = useRef(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
-    const handleChange = (e) => {
-      setIsLaptop(e.matches);
+    const handleChange = (e : MediaQueryListEvent) => {
+      // setIsLaptop(e.matches);
 
       if (e.matches) {
         setIsSideBarCollapsed(false);
@@ -32,7 +38,6 @@ const Sidebar = ({ onClick, tab, newNote }) => {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-
   return (
     <motion.div
       className={styles.sidebar}
@@ -40,10 +45,12 @@ const Sidebar = ({ onClick, tab, newNote }) => {
         width: isSideBarCollapsed ? "5.25rem" : "15rem",
       }}
       transition={{ duration: 0.2 }}
-
     >
       <span className={styles.logo_newnote}>
-        <Logo sidebarCollapsed={isSideBarCollapsed} setIsSidebarCollapsed={setIsSideBarCollapsed} />
+        <Logo
+          sidebarCollapsed={isSideBarCollapsed}
+          setIsSidebarCollapsed={setIsSideBarCollapsed}
+        />
         <NewNoteButton
           isSidebarCollapsed={isSideBarCollapsed}
           newNote={newNote}

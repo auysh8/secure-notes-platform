@@ -1,12 +1,21 @@
 import Notes from "./Notes";
 import styles from "./NotesGrid.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaRegNoteSticky } from "react-icons/fa6";
-import { MdOutlineArchive } from "react-icons/md";
-import { FaRegTrashAlt } from "react-icons/fa";
 import empty_notes_state from "../../assets/Notes.svg";
 import empty_archive_state from "../../assets/Archive.svg";
 import empty_trash_state from "../../assets/Trash.svg";
+import type { Note } from "../../types";
+
+interface NotesGridProps {
+  tab: string;
+  onClick: (value: string) => void;
+  notes: Note[];
+  pinId: (value: string) => void;
+  archiveId: (value: string) => void;
+  trashId: (value: string) => void;
+  restoreId: (value: string) => void;
+  deleteId: (value: string) => void;
+}
 
 const NotesGrid = ({
   tab,
@@ -17,8 +26,7 @@ const NotesGrid = ({
   trashId,
   restoreId,
   deleteId,
-}: any) => {
-
+}: NotesGridProps) => {
   return (
     <div className={styles.notesContainer}>
       {Object.keys(notes).length == 0 && tab == "notes" ? (
@@ -46,7 +54,8 @@ const NotesGrid = ({
           <img src={empty_trash_state} alt="No Notes" />
           <h2 className={styles.empty_title}>Trash is empty</h2>
           <p className={styles.empty_desc}>
-            Notes you delete move here. You can restore them anytime or delete them forever.
+            Notes you delete move here. You can restore them anytime or delete
+            them forever.
           </p>
         </div>
       ) : null}

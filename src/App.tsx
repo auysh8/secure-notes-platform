@@ -3,15 +3,16 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import SearchBar from "./components/Search bar/SearchBar";
 import "./App.css";
 import NoteGrid from "./components/Notes Grid/NotesGrid";
-import NewNoteButton from "./components/New Note Button/NewNoteButton";
 import NoteEdit from "./components/Note Edit View/NoteEdit";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import axios from "axios";
+import type { Note } from "./types";
+
 const App = () => {
   const [isNoteView, setIsNoteView] = useState(false);
   const [selectNote, setSelectNote] = useState<any>(null);
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +45,7 @@ const App = () => {
   };
 
   const renderNotes = () => {
-    let filterNotes = [];
+    let filterNotes: Note[] = [];
     if (activeTab === "notes") {
       filterNotes = notes.filter((note) => !note.isArchived && !note.isTrashed);
     } else if (activeTab === "archive") {
@@ -54,7 +55,7 @@ const App = () => {
     }
 
     if (searchInput.trim().length > 0) {
-      filterNotes = filterNotes.filter((note: any) => {
+      filterNotes = filterNotes.filter((note) => {
         return (
           note.title?.toLowerCase().includes(searchInput) ||
           note.content?.toLowerCase().includes(searchInput)
@@ -62,11 +63,13 @@ const App = () => {
       });
     }
 
-    filterNotes = filterNotes.sort((a: any, b: any) => {
+    filterNotes = filterNotes.sort((a, b) => {
       if (b.isPinned !== a.isPinned) {
         return Number(b.isPinned || 0) - Number(a.isPinned || 0);
       }
-      return b.lastEdited - a.lastEdited;
+      return (
+        new Date(b.lastEdited).getTime() - new Date(a.lastEdited).getTime()
+      );
     });
     return filterNotes;
   };
@@ -80,8 +83,8 @@ const App = () => {
     setIsNoteView(false);
   };
 
-  const handlePermanentlyDelete = async (deleteId: any) => {
-    const newNoteArray = notes.filter((note: any) => {
+  const handlePermanentlyDelete = async (deleteId: string) => {
+    const newNoteArray = notes.filter((note) => {
       if (deleteId === note._id) {
         return false;
       }
@@ -95,8 +98,8 @@ const App = () => {
     setNotes(newNoteArray);
   };
 
-  const handleNoteRestore = async (restoreId: any) => {
-    const newNoteArray = notes.map((note: any) => {
+  const handleNoteRestore = async (restoreId: string) => {
+    const newNoteArray = notes.map((note) => {
       if (restoreId === note._id && note.isTrashed === true) {
         return { ...note, isTrashed: false };
       }
@@ -112,8 +115,8 @@ const App = () => {
     setNotes(newNoteArray);
   };
 
-  const handleTrashNote = async (trashId: any) => {
-    const newNoteArray = notes.map((note: any) => {
+  const handleTrashNote = async (trashId: string) => {
+    const newNoteArray = notes.map((note) => {
       if (note._id === trashId && note.isTrashed === false) {
         return { ...note, isTrashed: true };
       }
@@ -136,8 +139,8 @@ const App = () => {
     setNotes(newNoteArray);
   };
 
-  const handleArchiveNote = async (archiveId: any) => {
-    const newNoteArray = notes.map((note: any) => {
+  const handleArchiveNote = async (archiveId: string) => {
+    const newNoteArray = notes.map((note) => {
       if (archiveId === note._id && note.isArchived === false) {
         return { ...note, isArchived: true };
       }
@@ -148,6 +151,10 @@ const App = () => {
     });
     try {
       const noteToUpdate = notes.find((note) => note._id === archiveId);
+      if (!noteToUpdate) {
+        console.error("Note not found");
+        return;
+      }
       const newAcrhiveStatus = !noteToUpdate.isArchived;
       await axios.put(`http://localhost:5000/api/notes/${archiveId}`, {
         isArchived: newAcrhiveStatus,
@@ -158,7 +165,7 @@ const App = () => {
     setNotes(newNoteArray);
   };
 
-  const handlePinNote = async (pinId) => {
+  const handlePinNote = async (pinId: string) => {
     const newNoteArray = notes.map((note) => {
       if (note._id === pinId && note.isPinned === false) {
         return { ...note, isPinned: true };
@@ -170,6 +177,10 @@ const App = () => {
     });
     try {
       const noteToPin = notes.find((note) => note._id === pinId);
+      if(!noteToPin){
+        console.error("Note not found")
+        return
+      }
       const newPinStatus = !noteToPin.isPinned;
       await axios.put(`http://localhost:5000/api/notes/${pinId}`, {
         isPinned: newPinStatus,
@@ -180,13 +191,13 @@ const App = () => {
     setNotes(newNoteArray);
   };
 
-  const handleNote = (key: any) => {
+  const handleNote = (key : string) => {
     setIsNoteView(true);
-    const noteToEdit = notes.find((note: any) => key === note._id);
+    const noteToEdit = notes.find((note) => key === note._id);
     setSelectNote(noteToEdit);
   };
 
-  const newNoteSave = async (newData: any) => {
+  const newNoteSave = async (newData : Note) => {
     setIsNoteView(false);
     try {
       const response = await axios.post(
@@ -202,21 +213,16 @@ const App = () => {
     }
   };
 
-  const editNoteSave = async (
-    id: any,
-    newTitle: any,
-    newContent: any,
-    newColor: any,
-  ) => {
+  const editNoteSave = async (id : string, newTitle : string, newContent : string, newColor : string) => {
     setIsNoteView(false);
-    const newNoteArray = notes.map((note: any) => {
+    const newNoteArray = notes.map((note) => {
       if (note._id === id) {
         return {
           ...note,
           title: newTitle,
           content: newContent,
           color: newColor,
-          lastEdited: Date.now(),
+          lastEdited: new Date().toISOString(),
         };
       }
       return note;

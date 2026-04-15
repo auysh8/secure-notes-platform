@@ -8,7 +8,17 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdOutlineRestore } from "react-icons/md";
 import styles from "./Notes.module.css";
-// import { button } from "framer-motion/client";
+import type { Note } from "../../types";
+
+interface NotesProps {
+  onClick: () => void;
+  noteData: Note;
+  pinId: (value: string) => void;
+  archiveId: (value: string) => void;
+  trashId: (value: string) => void;
+  restoreId: (value: string) => void;
+  deleteId: (value: string) => void;
+}
 
 const Notes = ({
   onClick,
@@ -18,15 +28,17 @@ const Notes = ({
   trashId,
   restoreId,
   deleteId,
-}: any) => {
-  // const notePinned = noteData.isPinned;
-  // const noteArchived = noteData.isArchived;
+}: NotesProps) => {
   const [popup, setPopup] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popup && menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popup &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
         setPopup(false);
       }
     };
@@ -34,7 +46,7 @@ const Notes = ({
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  },[popup]);
+  }, [popup]);
 
   const handlePopup = () => {
     setPopup(!popup);
@@ -43,7 +55,9 @@ const Notes = ({
     if (!noteData) {
       return "";
     }
-    const secounds = Math.floor((Date.now() - noteData.lastEdited) / 1000);
+    const secounds = Math.floor(
+      (Date.now() - new Date(noteData.lastEdited).getTime()) / 1000,
+    );
     let interval = Math.floor(secounds / 31536000);
     if (interval >= 1) return interval + "y ago";
 

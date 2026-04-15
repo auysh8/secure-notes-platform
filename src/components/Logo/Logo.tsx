@@ -1,9 +1,14 @@
-import React, { useState } from "react";
 import styles from "./Logo.module.css";
+import { useState } from "react";
 import { TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { FaRegNoteSticky } from "react-icons/fa6";
-const Logo = ({ sidebarCollapsed , setIsSidebarCollapsed}) => {
+
+interface logoProps {
+  sidebarCollapsed: boolean;
+  setIsSidebarCollapsed: (value: boolean) => void;
+}
+const Logo = ({ sidebarCollapsed, setIsSidebarCollapsed } : logoProps) => {
   const [isSidebarToggle, setIsSidebarToggle] = useState(false);
   return (
     <div className={styles.logo}>
@@ -13,12 +18,19 @@ const Logo = ({ sidebarCollapsed , setIsSidebarCollapsed}) => {
         onMouseLeave={() => setIsSidebarToggle(false)}
         onClick={() => setIsSidebarCollapsed(false)}
       >
-        {sidebarCollapsed && isSidebarToggle && <TbLayoutSidebarRightCollapse size={25} />}
-        {(!sidebarCollapsed || !isSidebarToggle) && <FaRegNoteSticky size={25} />}
+        {sidebarCollapsed && isSidebarToggle && (
+          <TbLayoutSidebarRightCollapse size={25} />
+        )}
+        {(!sidebarCollapsed || !isSidebarToggle) && (
+          <FaRegNoteSticky size={25} />
+        )}
       </button>
       {!sidebarCollapsed && <span className={styles.app_name}>Notes</span>}
       {!sidebarCollapsed && (
-        <button className={styles.minimize} onClick={() => setIsSidebarCollapsed(true)}>
+        <button
+          className={styles.minimize}
+          onClick={() => setIsSidebarCollapsed(true)}
+        >
           <TbLayoutSidebarLeftCollapse size={25} />
         </button>
       )}

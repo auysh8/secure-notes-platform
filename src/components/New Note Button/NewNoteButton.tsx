@@ -1,10 +1,13 @@
-import React from "react";
 import styles from "./NewNoteButton.module.css";
 import { FaPlus } from "react-icons/fa";
-import { span } from "framer-motion/client";
-import { animate, AnimatePresence, delay, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-const NewNoteButton = ({ newNote, isSidebarCollapsed }) => {
+interface NewNoteButtonProps {
+  newNote: () => void;
+  isSidebarCollapsed: boolean;
+}
+
+const NewNoteButton = ({ newNote, isSidebarCollapsed }: NewNoteButtonProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,20 +18,19 @@ const NewNoteButton = ({ newNote, isSidebarCollapsed }) => {
         <FaPlus />
         <AnimatePresence>
           <motion.span
-          className={styles.newnote}
+            className={styles.newnote}
             initial={{ opacity: 0, width: 0 }}
             animate={{
               opacity: isSidebarCollapsed ? 0 : 1,
               width: isSidebarCollapsed ? 0 : "auto",
               marginLeft: isSidebarCollapsed ? 0 : "10px",
-              transition: {duration:0}
+              transition: { duration: 0 },
             }}
-            // transition={{ duration: 0.3, ease: "easeInOut" }}
-            exit={{ opacity: 0 , transition: {duration: 0}}}
-            style={{ 
-            overflow: "hidden", 
-            whiteSpace: "nowrap", 
-          }}
+            exit={{ opacity: 0, transition: { duration: 0 } }}
+            style={{
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            }}
           >
             New Note
           </motion.span>
