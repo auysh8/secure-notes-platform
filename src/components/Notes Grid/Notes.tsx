@@ -85,20 +85,22 @@ const Notes = ({
     >
       <div className={styles.notes_header}>
         <span className={styles.notes_heading}>{noteData.title}</span>
-        <button
-          className={styles.pin_button}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            pinId(noteData._id);
-          }}
-        >
-          {noteData.isPinned ? (
-            <TbPinnedFilled size={20} color="#4f4f4fff" />
-          ) : (
-            <VscPinned size={20} color="#4f4f4fff" />
-          )}
-        </button>
+        {!noteData.isArchived && !noteData.isTrashed ? (
+          <button
+            className={styles.pin_button}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              pinId(noteData._id);
+            }}
+          >
+            {noteData.isPinned ? (
+              <TbPinnedFilled size={20} color="#4f4f4fff" />
+            ) : (
+              <VscPinned size={20} color="#4f4f4fff" />
+            )}
+          </button>
+        ) : null}
       </div>
       <span className={styles.note_content}>{noteData.content}</span>
       <div className={styles.note_footer}>

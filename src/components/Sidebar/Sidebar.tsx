@@ -17,15 +17,12 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
   );
-  // const [isLaptop, setIsLaptop] = useState(
-  //   window.matchMedia("(min-width : 1024px)").matches,
-  // );
-  // const timeRef = useRef(null);
+
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const handleChange = (e : MediaQueryListEvent) => {
-      // setIsLaptop(e.matches);
+
 
       if (e.matches) {
         setIsSideBarCollapsed(false);
