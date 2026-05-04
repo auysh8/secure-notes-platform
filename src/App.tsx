@@ -6,8 +6,17 @@ import NoteGrid from "./components/Notes Grid/NotesGrid";
 import NoteEdit from "./components/Note Edit View/NoteEdit";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import axios from "axios";
 import type { Note } from "./types";
+import {
+  archiveNote,
+  deleteNote,
+  pinNote,
+  restoreNote,
+  saveNote,
+  trashNote,
+  editNote,
+  getNotes,
+} from "./services/notesApi";
 
 const App = () => {
   const [isNoteView, setIsNoteView] = useState(false);
@@ -23,7 +32,7 @@ const App = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/notes`);
+        const response = await getNotes();
         setNotes(response.data.notes);
       } catch (err) {
         console.log(err);
@@ -91,11 +100,12 @@ const App = () => {
       return true;
     });
     try {
-      await axios.delete(`http://localhost:5000/api/notes/${deleteId}`);
+      await deleteNote(deleteId);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
 
   const handleNoteRestore = async (restoreId: string) => {
@@ -106,13 +116,12 @@ const App = () => {
       return { ...note };
     });
     try {
-      await axios.put(`http://localhost:5000/api/notes/${restoreId}`, {
-        isTrashed: false,
-      });
+      await restoreNote(restoreId);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
 
   const handleTrashNote = async (trashId: string) => {
@@ -130,13 +139,12 @@ const App = () => {
       return { ...note };
     });
     try {
-      await axios.put(`http://localhost:5000/api/notes/${trashId}`, {
-        isTrashed: true,
-      });
+      await trashNote(trashId);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
 
   const handleArchiveNote = async (archiveId: string) => {
@@ -155,14 +163,13 @@ const App = () => {
         console.error("Note not found");
         return;
       }
-      const newAcrhiveStatus = !noteToUpdate.isArchived;
-      await axios.put(`http://localhost:5000/api/notes/${archiveId}`, {
-        isArchived: newAcrhiveStatus,
-      });
+      const newArchiveStatus = !noteToUpdate.isArchived;
+      await archiveNote(archiveId, newArchiveStatus);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
 
   const handlePinNote = async (pinId: string) => {
@@ -177,33 +184,29 @@ const App = () => {
     });
     try {
       const noteToPin = notes.find((note) => note._id === pinId);
-      if(!noteToPin){
-        console.error("Note not found")
-        return
+      if (!noteToPin) {
+        console.error("Note not found");
+        return;
       }
       const newPinStatus = !noteToPin.isPinned;
-      await axios.put(`http://localhost:5000/api/notes/${pinId}`, {
-        isPinned: newPinStatus,
-      });
+      await pinNote(pinId, newPinStatus);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
 
-  const handleNote = (key : string) => {
+  const handleNote = (key: string) => {
     setIsNoteView(true);
     const noteToEdit = notes.find((note) => key === note._id);
     setSelectNote(noteToEdit);
   };
 
-  const newNoteSave = async (newData : Note) => {
+  const newNoteSave = async (newData: Note) => {
     setIsNoteView(false);
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/notes`,
-        newData,
-      );
+      const response = await saveNote(newData);
       console.log("Backend Response:", response.data);
       if (!response.data.error) {
         setNotes([response.data.note, ...notes]);
@@ -213,7 +216,12 @@ const App = () => {
     }
   };
 
-  const editNoteSave = async (id : string, newTitle : string, newContent : string, newColor : string) => {
+  const editNoteSave = async (
+    id: string,
+    newTitle: string,
+    newContent: string,
+    newColor: string,
+  ) => {
     setIsNoteView(false);
     const newNoteArray = notes.map((note) => {
       if (note._id === id) {
@@ -228,16 +236,12 @@ const App = () => {
       return note;
     });
     try {
-      await axios.put(`http://localhost:5000/api/notes/${id}`, {
-        title: newTitle,
-        content: newContent,
-        color: newColor,
-        lastEdited: Date.now(),
-      });
+      await editNote(id, newTitle, newContent, newColor);
+      setNotes(newNoteArray);
     } catch (err) {
       console.error(err);
     }
-    setNotes(newNoteArray);
+    
   };
   return (
     <div className="app">
