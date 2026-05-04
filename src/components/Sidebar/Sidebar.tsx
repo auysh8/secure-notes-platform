@@ -18,12 +18,9 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
     !window.matchMedia("(min-width : 1024px)").matches,
   );
 
-
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
-    const handleChange = (e : MediaQueryListEvent) => {
-
-
+    const handleChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
         setIsSideBarCollapsed(false);
       } else {
