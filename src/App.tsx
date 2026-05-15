@@ -76,7 +76,7 @@ const App = () => {
     return filterNotes;
   };
   if (isAuthView) {
-    return <AuthPage/>;
+    return <AuthPage onLogin={() => setIsAuthView(false)} />;
   } else {
     return (
       <div className="app">
