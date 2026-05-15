@@ -1,0 +1,19 @@
+.app{
+    display: flex;
+}
+
+.dashboard{
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    flex-direction: column;
+    height: 100vh;
+    margin-left: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .dashboard{
+    margin-left: 0;
+  }
+}
+
