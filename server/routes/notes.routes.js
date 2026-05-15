@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const notes = await Note.find();
+    const notes = await Note.find({ userId: req.user });
     res.json({ notes, message: "Notes retrieved successfully" });
   } catch (err) {
     console.error(err);
@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
       isArchived,
       lastEdited,
       isTrashed,
+      userId: req.user,
     });
 
     const savedNote = await note.save();

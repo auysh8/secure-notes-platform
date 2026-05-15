@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
   title: {
     type: String,
-    default : "",
+    default: "",
   },
   content: {
     type: String,
-    default : "",
+    default: "",
   },
   color: {
     type: String,
-    default : "",
+    default: "",
   },
   isPinned: {
     type: Boolean,
@@ -31,4 +32,4 @@ const noteSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Note" , noteSchema)
+module.exports = mongoose.model("Note", noteSchema);
