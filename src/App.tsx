@@ -8,8 +8,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import type { Note } from "./types";
 import { useNotes } from "./hooks/useNotes";
+import AuthPage from "./pages/AuthPage";
 
 const App = () => {
+  const [isAuthView, setIsAuthView] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,40 +75,43 @@ const App = () => {
     });
     return filterNotes;
   };
-
-  return (
-    <div className="app">
-      <Sidebar
-        onClick={handleSidebar}
-        tab={activeTab}
-        newNote={handleNewNote}
-      />
-      <div className="dashboard">
-        <SearchBar input={handleSearchBar} />
-        <NoteGrid
+  if (isAuthView) {
+    return <AuthPage/>;
+  } else {
+    return (
+      <div className="app">
+        <Sidebar
+          onClick={handleSidebar}
           tab={activeTab}
-          onClick={handleNote}
-          notes={renderNotes()}
-          pinId={handlePinNote}
-          archiveId={handleArchiveNote}
-          trashId={handleTrashNote}
-          restoreId={handleNoteRestore}
-          deleteId={handlePermanentlyDelete}
+          newNote={handleNewNote}
         />
-      </div>
-      <AnimatePresence>
-        {isNoteView && (
-          <NoteEdit
-            layoutId={selectNote}
-            onOpen={selectNote}
-            onClose={noteClose}
-            onNewSave={newNoteSave}
-            onEditedSave={editNoteSave}
+        <div className="dashboard">
+          <SearchBar input={handleSearchBar} />
+          <NoteGrid
+            tab={activeTab}
+            onClick={handleNote}
+            notes={renderNotes()}
+            pinId={handlePinNote}
+            archiveId={handleArchiveNote}
+            trashId={handleTrashNote}
+            restoreId={handleNoteRestore}
+            deleteId={handlePermanentlyDelete}
           />
-        )}
-      </AnimatePresence>
-    </div>
-  );
+        </div>
+        <AnimatePresence>
+          {isNoteView && (
+            <NoteEdit
+              layoutId={selectNote}
+              onOpen={selectNote}
+              onClose={noteClose}
+              onNewSave={newNoteSave}
+              onEditedSave={editNoteSave}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
 };
 
 export default App;
