@@ -2,7 +2,11 @@ import { useState } from "react";
 import styles from "./AuthPage.module.css";
 import axios from "axios";
 
-const AuthPage = ({ onLogin }) => {
+interface AuthPageProps {
+  onLogin: () => void;
+}
+
+const AuthPage = ({ onLogin }: AuthPageProps) => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,13 +28,10 @@ const AuthPage = ({ onLogin }) => {
   };
   const handleRegister = async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/auth/register`,
-        {
-          email: email,
-          password: password,
-        },
-      );
+      await axios.post(`http://localhost:5000/api/auth/register`, {
+        email: email,
+        password: password,
+      });
     } catch (err) {
       console.error(err);
     }
