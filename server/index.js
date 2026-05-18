@@ -16,7 +16,7 @@ mongoose
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://notes-app-hjn2.onrender.com"],
+    origin: ["http://localhost:5173", "https://notes-app-hjn2.onrender.com" , "https://auysh8.github.io/notes-app/"],
   }),
 );
 app.use(express.json());

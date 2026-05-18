@@ -14,7 +14,7 @@ const AuthPage = ({ onLogin }: AuthPageProps) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/auth/login`,
+        `https://notes-app-hjn2.onrender.com/api/auth/login`,
         {
           email: email,
           password: password,
@@ -28,7 +28,7 @@ const AuthPage = ({ onLogin }: AuthPageProps) => {
   };
   const handleRegister = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/auth/register`, {
+      await axios.post(`https://notes-app-hjn2.onrender.com/api/auth/register`, {
         email: email,
         password: password,
       });
