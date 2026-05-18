@@ -1,73 +1,128 @@
-# React + TypeScript + Vite
+# Notes App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack notes application with JWT authentication, built with React and Node.js.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[https://auysh8.github.io/notes-app/](https://auysh8.github.io/notes-app/)
 
-## React Compiler
+## Screenshots
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+![Login Page](screenshots/login.png)
+![Notes Grid](screenshots/notes.png)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Register and login with JWT authentication
+- Create, edit, and delete notes
+- Pin, archive, and trash notes
+- Search notes by title or content
+- Color coded notes
+- Responsive masonry grid layout
+- Notes linked to individual users
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Frontend**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React + TypeScript
+- Framer Motion
+- Axios
+- React Router DOM
+
+**Backend**
+
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT Authentication
+- bcryptjs
+
+## Project Structure
+
+```
+notes-app/
+├── src/
+│   ├── components/
+│   ├── hooks/
+│   │   └── useNotes.ts
+│   ├── pages/
+│   │   └── AuthPage.tsx
+│   ├── services/
+│   │   └── notesApi.ts
+│   └── types/
+└── server/
+    ├── middleware/
+    │   └── auth.middleware.js
+    ├── models/
+    │   ├── note.model.js
+    │   └── user.model.js
+    ├── routes/
+    │   ├── auth.routes.js
+    │   └── notes.routes.js
+    └── index.js
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js
+- MongoDB Atlas account
+
+### Installation
+
+**Clone the repo**
+
+```bash
+git clone https://github.com/auysh8/notes-app.git
+cd notes-app
 ```
+
+**Install frontend dependencies**
+
+```bash
+npm install
+```
+
+**Install backend dependencies**
+
+```bash
+cd server
+npm install
+```
+
+**Set up environment variables**
+
+Create a `.env` file inside the `server` folder:
+
+```
+MONGO_URI=your_mongodb_uri
+JWT=your_jwt_secret
+PORT=5000
+```
+
+### Running the App
+
+**Start the backend**
+
+```bash
+cd server
+node index.js
+```
+
+**Start the frontend**
+
+```bash
+npm run dev
+```
+
+Frontend runs on `http://localhost:5173` and backend on `http://localhost:5000`.
+
+## Deployment
+
+- **Backend** — deployed on [Render](https://render.com)
+- **Frontend** — deployed on [GitHub Pages](https://pages.github.com)
+
+## License
+
+MIT
