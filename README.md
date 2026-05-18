@@ -8,8 +8,10 @@ A full-stack notes application with JWT authentication, built with React and Nod
 
 ## Screenshots
 
-![Login Page](src/screenshots/login.png)
-![Notes Grid](src/screenshots/dashboard.png)
+## Screenshots
+
+<img src="src/screenshots/login.png" width="700"/>
+<img src="src/screenshots/dashboard.png" width="700"/>
 
 ## Features
 
