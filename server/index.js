@@ -14,7 +14,11 @@ mongoose
   .then(() => console.log("Database connected"))
   .catch((err) => console.error("Database connection error", err));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://notes-app-hjn2.onrender.com"],
+  }),
+);
 app.use(express.json());
 
 app.use("/api/notes", authMiddleware, notesRouter);

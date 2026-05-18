@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Note } from "../types";
 
-const apiUrl = `http://localhost:5000/api/notes/`;
+const apiUrl = `https://notes-app-hjn2.onrender.com`;
 
 const getApi = () =>
   axios.create({
