@@ -6,7 +6,6 @@ A full-stack notes application with JWT authentication, built with React and Nod
 
 [https://auysh8.github.io/notes-app/](https://auysh8.github.io/notes-app/)
 
-## Screenshots
 
 ## Screenshots
 

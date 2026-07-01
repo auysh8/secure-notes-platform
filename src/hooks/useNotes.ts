@@ -14,7 +14,7 @@ import type { Note } from "../types";
 export const useNotes = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isNoteView, setIsNoteView] = useState(false);
-  const [selectNote, setSelectNote] = useState<any>(null);
+  const [selectNote, setSelectNote] = useState<Note | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {

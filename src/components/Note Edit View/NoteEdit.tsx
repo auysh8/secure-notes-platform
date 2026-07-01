@@ -1,8 +1,28 @@
 import { useState } from "react";
 import styles from "./NoteEdit.module.css";
-import { motion } from "framer-motion"; // 1. Import Motion
+import { motion } from "framer-motion";
+import type { Note } from "../../types";
 
-const NoteEdit = ({ onOpen, onNewSave, onEditedSave, onClose, layoutId }: any) => {
+interface NoteEditProps {
+  onOpen: Note | null;
+  onNewSave: (newNote: Note) => void;
+  onEditedSave: (
+    id: string,
+    title: string,
+    content: string,
+    color: string,
+  ) => void;
+  onClose: () => void;
+  layoutId: Note;
+}
+
+const NoteEdit = ({
+  onOpen,
+  onNewSave,
+  onEditedSave,
+  onClose,
+  layoutId,
+}: NoteEditProps) => {
   const [id] = useState(onOpen?._id || "");
   const [title, setTitle] = useState(onOpen?.title || "");
   const [content, setContent] = useState(onOpen?.content || "");
@@ -13,13 +33,13 @@ const NoteEdit = ({ onOpen, onNewSave, onEditedSave, onClose, layoutId }: any) =
       onEditedSave(id, title, content, color);
     } else {
       const newNote = {
-        id: Date.now(),
+        _id: Date.now().toString(),
         title: title,
         content: content,
         color: color,
         isPinned: false,
         isArchived: false,
-        lastEdited: Date.now(),
+        lastEdited: Date.now().toString(),
         isTrashed: false,
       };
       onNewSave(newNote);
