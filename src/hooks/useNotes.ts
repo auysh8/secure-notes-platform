@@ -9,7 +9,7 @@ import {
   getNotes,
 } from "../services/notesApi";
 import { useState, useEffect } from "react";
-import type { Note } from "../types";
+import type { NewNote, Note } from "../types";
 
 export const useNotes = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -128,7 +128,7 @@ export const useNotes = () => {
     }
   };
 
-  const newNoteSave = async (newData: Note) => {
+  const newNoteSave = async (newData: NewNote) => {
     setIsNoteView(false);
     try {
       const response = await saveNote(newData);
@@ -180,7 +180,7 @@ export const useNotes = () => {
   const handleNote = (key: string) => {
     setIsNoteView(true);
     const noteToEdit = notes.find((note) => key === note._id);
-    setSelectNote(noteToEdit);
+    setSelectNote(noteToEdit || null);
   };
 
   return {

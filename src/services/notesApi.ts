@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note } from "../types";
+import type { NewNote} from "../types";
 
 const apiUrl = `https://notes-app-hjn2.onrender.com/api/notes`;
 
@@ -33,7 +33,7 @@ export const pinNote = (id: string, pinStatus: boolean) =>
     isPinned: pinStatus,
   });
 
-export const saveNote = (note: Note) => getApi().post("", note);
+export const saveNote = (note: NewNote) => getApi().post("", note);
 
 export const editNote = (
   id: string,

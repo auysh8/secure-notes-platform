@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styles from "./NoteEdit.module.css";
 import { motion } from "framer-motion";
-import type { Note } from "../../types";
+import type { NewNote, Note } from "../../types";
 
 interface NoteEditProps {
   onOpen: Note | null;
-  onNewSave: (newNote: Note) => void;
+  onNewSave: (newNote: NewNote) => void;
   onEditedSave: (
     id: string,
     title: string,
@@ -13,7 +13,7 @@ interface NoteEditProps {
     color: string,
   ) => void;
   onClose: () => void;
-  layoutId: Note;
+  layoutId: Note | null;
 }
 
 const NoteEdit = ({
@@ -33,7 +33,6 @@ const NoteEdit = ({
       onEditedSave(id, title, content, color);
     } else {
       const newNote = {
-        _id: Date.now().toString(),
         title: title,
         content: content,
         color: color,
