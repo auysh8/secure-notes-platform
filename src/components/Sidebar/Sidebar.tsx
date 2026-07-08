@@ -1,4 +1,5 @@
 import styles from "./Sidebar.module.css";
+import { MdOutlineLogout } from "react-icons/md";
 import { MdOutlineArchive } from "react-icons/md";
 import { FaRegNoteSticky } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -6,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Logo from "../Logo/Logo";
 import { useEffect, useState } from "react";
 import NewNoteButton from "../New Note Button/NewNoteButton";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
   onClick: (value: string) => void;
@@ -14,6 +16,8 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
+  const userName = "Auysh";
+  const navigate = useNavigate();
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
   );
@@ -31,6 +35,11 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login")
+  };
 
   return (
     <motion.div
@@ -135,6 +144,29 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
           </AnimatePresence>
         </li>
       </ul>
+      <div className={styles.profile_container}>
+        <div className={styles.avatar}>
+          <img src={`https://ui-avatars.com/api/?name=${userName}`} alt="" />
+        </div>
+
+        <motion.div
+          className={styles.username_logout}
+          animate={{
+            opacity: isSideBarCollapsed ? 0 : 1,
+            pointerEvents: isSideBarCollapsed ? "none" : "auto",
+          }}
+          transition={{ duration: 0.2 }}
+          style={{
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <span className={styles.username}>{userName}</span>
+          <button className={styles.logout_button} onClick={handleLogout}>
+            <MdOutlineLogout />
+          </button>
+        </motion.div>
+      </div>
     </motion.div>
   );
 };

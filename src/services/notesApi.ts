@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { NewNote } from "../types";
 
+
 const apiClient = axios.create({
   baseURL: "https://notes-app-hjn2.onrender.com/api/notes",
 });
@@ -20,7 +21,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/notes-app/login";
     }
     return Promise.reject(error);
   },

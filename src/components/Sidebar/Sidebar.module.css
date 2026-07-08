@@ -78,3 +78,51 @@
   flex-shrink: 0; /* Prevents the icon from being squashed */
   min-width: 20px; /* Enforces the icon's original size */
 }
+
+.profile_container{
+  margin-top: auto;
+  display: flex;
+  padding-top: 10px; 
+  border-top: 1px solid rgb(235, 235, 235);
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.username_logout{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0; /* ⚡ Prevents the avatar from squishing */
+}
+
+.avatar img {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* Optional: Ensures the image perfectly fills the circle */
+}
+
+.logout_button{
+  font-size: 1.2rem;
+  color: rgb(114, 114, 114);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.logout_button:hover{
+  color: rgb(75, 75, 75);
+  background-color: rgb(234, 234, 234);
+}
+
