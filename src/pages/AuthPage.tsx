@@ -27,7 +27,7 @@ const AuthPage = () => {
       }, 3000);
     } catch (err) {
       console.error(err);
-      if (err.response?.status === 401) {
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
         const message = err.response.data.message;
         toast.error(message, {
           style: { backgroundColor: "#000000", color: "#ffffff" },
