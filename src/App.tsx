@@ -8,9 +8,14 @@ interface ProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute = ({ children } : ProtectedRouteProps) => {
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to={"/login"} />;
+};
+
+const PublicRoute = ({ children }: ProtectedRouteProps) => {
+  const token = localStorage.getItem("token");
+  return token ? <Navigate to={"/"} /> : children;
 };
 
 const App = () => {
@@ -19,7 +24,9 @@ const App = () => {
       <Route
         path="/login"
         element={
-          localStorage.getItem("token") ? <Navigate to={"/"} /> : <AuthPage />
+          <PublicRoute>
+            <AuthPage />
+          </PublicRoute>
         }
       />
       <Route

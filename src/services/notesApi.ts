@@ -3,7 +3,7 @@ import type { NewNote } from "../types";
 
 
 const apiClient = axios.create({
-  baseURL: "https://notes-app-hjn2.onrender.com/api/notes",
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}/notes`,
 });
 
 apiClient.interceptors.request.use((config) => {
