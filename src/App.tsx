@@ -37,6 +37,22 @@ const App = () => {
           </ProtectedRoute>
         }
       />
+            <Route
+        path="/Archive"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+            <Route
+        path="/Trash"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
