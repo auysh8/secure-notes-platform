@@ -21,7 +21,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/notes-app/login";
+      window.location.href = "/secure-notes-platform/login";
     }
     return Promise.reject(error);
   },

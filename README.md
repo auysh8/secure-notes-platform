@@ -4,7 +4,7 @@ A full-stack notes application with JWT authentication, built with React and Nod
 
 ## Live Demo
 
-[https://auysh8.github.io/notes-app/](https://auysh8.github.io/notes-app/)
+[https://auysh8.github.io/secure-notes-platform/](https://auysh8.github.io/secure-notes-platform/)
 
 
 ## Screenshots
@@ -41,7 +41,7 @@ A full-stack notes application with JWT authentication, built with React and Nod
 ## Project Structure
 
 ```
-notes-app/
+secure-notes-platform/
 ├── src/
 │   ├── components/
 │   ├── hooks/
@@ -75,8 +75,8 @@ notes-app/
 **Clone the repo**
 
 ```bash
-git clone https://github.com/auysh8/notes-app.git
-cd notes-app
+git clone https://github.com/auysh8/secure-notes-platform.git
+cd secure-notes-platform
 ```
 
 **Install frontend dependencies**
