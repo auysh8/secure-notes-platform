@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const AuthPage = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(`${backendUrl}/auth/register`, {
+        name,
         email,
         password,
       });
@@ -125,7 +127,11 @@ const AuthPage = () => {
                 <>
                   <div className={styles.input_group}>
                     <label>Name</label>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </div>
                   <div className={styles.input_group}>
                     <label>Email Address</label>
@@ -162,13 +168,6 @@ const AuthPage = () => {
                 </div>
               )}
             </div>
-
-            {!isLogin && (
-              <label className={styles.terms_checkbox}>
-                <input type="checkbox" />I agree to the terms of service and
-                privacy policy
-              </label>
-            )}
 
             {isLogin && (
               <div style={{ textAlign: "right", marginTop: "-0.5rem" }}>
