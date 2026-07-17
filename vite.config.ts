@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: command === "build" ? "/secure-notes-platform/" : "/",
+  base: "/secure-notes-platform/",
 }));

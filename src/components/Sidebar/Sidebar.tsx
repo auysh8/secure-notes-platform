@@ -16,7 +16,8 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
-  const userName = "Auysh";
+  const userName = localStorage.getItem("name");
+  console.log(userName);
   const navigate = useNavigate();
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
@@ -38,7 +39,7 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login")
+    navigate("/login");
   };
 
   return (
