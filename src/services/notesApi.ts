@@ -1,7 +1,6 @@
 import axios from "axios";
 import type { NewNote } from "../types";
 
-
 const apiClient = axios.create({
   baseURL: `${import.meta.env.VITE_BACKEND_URL}/notes`,
 });
@@ -21,7 +20,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/secure-notes-platform/login";
+      window.dispatchEvent(new Event("unauthorized"));
     }
     return Promise.reject(error);
   },

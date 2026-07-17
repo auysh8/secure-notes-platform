@@ -1,8 +1,9 @@
 import "./App.css";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./dashboard/Dashboard";
-import { Navigate, Route, Routes } from "react-router-dom";
-import type { ReactNode } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useEffect, type ReactNode } from "react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -10,7 +11,22 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const token = localStorage.getItem("token");
-  return token ? children : <Navigate to={"/login"} />;
+  try {
+    if (!token) {
+      return children;
+    }
+    const decoded = jwtDecode(token);
+    const currTime = Date.now() / 1000;
+    if (decoded.exp && decoded.exp < currTime) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("name");
+      return <Navigate to={"/login"} />;
+    }
+    return children;
+  } catch (err) {
+    localStorage.removeItem("token");
+    return <Navigate to={"/login"} />;
+  }
 };
 
 const PublicRoute = ({ children }: ProtectedRouteProps) => {
@@ -19,6 +35,16 @@ const PublicRoute = ({ children }: ProtectedRouteProps) => {
 };
 
 const App = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      navigate("/login");
+    };
+
+    window.addEventListener("unauthorized", handleUnauthorized);
+    return () => window.removeEventListener("unauthorized", handleUnauthorized);
+  }, [navigate]);
   return (
     <Routes>
       <Route
@@ -37,16 +63,16 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-            <Route
-        path="/Archive"
+      <Route
+        path="/archive"
         element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         }
       />
-            <Route
-        path="/Trash"
+      <Route
+        path="/trash"
         element={
           <ProtectedRoute>
             <Dashboard />

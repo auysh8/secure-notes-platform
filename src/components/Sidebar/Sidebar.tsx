@@ -17,7 +17,6 @@ interface SidebarProps {
 
 const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
   const userName = localStorage.getItem("name") || "User";
-  console.log(userName);
   const navigate = useNavigate();
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
