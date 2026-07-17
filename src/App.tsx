@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const token = localStorage.getItem("token");
   try {
     if (!token) {
-      return children;
+      return <Navigate to={"/login"} />;
     }
     const decoded = jwtDecode(token);
     const currTime = Date.now() / 1000;
