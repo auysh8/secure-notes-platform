@@ -1,19 +1,19 @@
 const express = require("express");
 const Note = require("../models/note.model");
 const router = express.Router();
+const asyncHandler = require("express-async-handler");
 
-router.get("/", async (req, res) => {
-  try {
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
     const notes = await Note.find({ userId: req.user });
     res.json({ notes, message: "Notes retrieved successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+  }),
+);
 
-router.post("/", async (req, res) => {
-  try {
+router.post(
+  "/",
+  asyncHandler(async (req, res) => {
     const {
       title,
       content,
@@ -37,33 +37,31 @@ router.post("/", async (req, res) => {
 
     const savedNote = await note.save();
     res.json({ error: false, message: "Note saved", note: savedNote });
-  } catch (err) {
-    res.status(500).json({ message: "Internal Server error" });
-  }
-});
+  }),
+);
 
-router.delete("/:id", async (req, res) => {
-  try {
+router.delete(
+  "/:id",
+  asyncHandler(async (req, res) => {
     const noteId = req.params.id;
-    await Note.findByIdAndDelete(noteId);
+    await Note.findOneAndDelete({ _id: noteId, userId: req.user });
     res.json({ message: "Note deleted successfully" });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+  }),
+);
 
-router.put("/:id", async (req, res) => {
-  try {
+router.put(
+  "/:id",
+  asyncHandler(async (req, res) => {
     const noteId = req.params.id;
-    const updatedNote = await Note.findByIdAndUpdate(noteId, req.body, {
-      new: true,
-    });
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: noteId, userId: req.user },
+      req.body,
+      {
+        new: true,
+      },
+    );
     res.json({ updatedNote, message: "Note updated successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+  }),
+);
 
 module.exports = router;

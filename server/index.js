@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const notesRouter = require("./routes/notes.routes");
 const userRoutes = require("./routes/auth.routes");
 const authMiddleware = require("./middleware/auth.middleware");
+const errHandler = require("./middleware/error.middleware");
+const errorHandler = require("./middleware/error.middleware");
 
 require("dotenv").config();
 
@@ -16,13 +18,15 @@ mongoose
 
 app.use(
   cors({
-    origin: ["http://localhost:5173" , "https://auysh8.github.io"],
+    origin: ["http://localhost:5173", "https://auysh8.github.io"],
   }),
 );
 app.use(express.json());
 
 app.use("/api/notes", authMiddleware, notesRouter);
 app.use("/api/auth", userRoutes);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
