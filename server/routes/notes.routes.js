@@ -44,7 +44,14 @@ router.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     const noteId = req.params.id;
-    await Note.findOneAndDelete({ _id: noteId, userId: req.user });
+    const deleteNote = await Note.findOneAndDelete({
+      _id: noteId,
+      userId: req.user,
+    });
+    if (!deleteNote) {
+      res.status(404);
+      throw new Error("Unable to delete note");
+    }
     res.json({ message: "Note deleted successfully" });
   }),
 );
@@ -60,6 +67,10 @@ router.put(
         new: true,
       },
     );
+    if (!updatedNote) {
+      res.status(404);
+      throw new Error("Unable to update note");
+    }
     res.json({ updatedNote, message: "Note updated successfully" });
   }),
 );
