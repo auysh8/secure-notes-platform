@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface INote extends Document {
+export interface INote {
   userId: string;
   title: string;
   content: string;
@@ -43,4 +43,4 @@ const noteSchema = new mongoose.Schema<INote>({
   },
 });
 
-export default mongoose.model<INote>("Note", noteSchema);
+export default mongoose.model("Note", noteSchema);

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import Note from "../models/note.model";
 
 const getAllNotes = asyncHandler(async (req: Request, res: Response) => {
-  const notes = await Note.find({ userId: req.user });
+  const notes = await Note.find({ userId: req.user } as any);
   res.json({ notes, message: "Notes retrieved successfully" });
 });
 
@@ -31,7 +31,7 @@ const deleteNote = asyncHandler(async (req: Request, res: Response) => {
   const deleteNote = await Note.findOneAndDelete({
     _id: noteId,
     userId: req.user,
-  });
+  } as any);
   if (!deleteNote) {
     res.status(404);
     throw new Error("Unable to delete note");
@@ -42,7 +42,7 @@ const deleteNote = asyncHandler(async (req: Request, res: Response) => {
 const updateNote = asyncHandler(async (req: Request, res: Response) => {
   const noteId = req.params.id;
   const updatedNote = await Note.findOneAndUpdate(
-    { _id: noteId, userId: req.user },
+    { _id: noteId, userId: req.user } as any,
     req.body,
     {
       new: true,
