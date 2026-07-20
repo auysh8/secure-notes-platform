@@ -1,5 +1,5 @@
-const asyncHandler = require("express-async-handler");
-const Note = require("../models/note.model");
+import asyncHandler from "express-async-handler";
+import Note from "../models/note.model";
 
 const getAllNotes = asyncHandler(async (req, res) => {
   const notes = await Note.find({ userId: req.user });

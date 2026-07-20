@@ -1,11 +1,11 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const {
+import {
   getAllNotes,
   createNewNote,
   deleteNote,
   updateNote,
-} = require("../controller/notes.controller");
+} from "../controller/notes.controller";
 
 router.get("/", getAllNotes);
 

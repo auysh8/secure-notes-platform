@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const { login, register } = require("../controller/auth.controller");
+import { login, register } from "../controller/auth.controller";
 
 router.post("/login", login);
 

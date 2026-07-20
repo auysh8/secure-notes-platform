@@ -1,13 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const notesRouter = require("./routes/notes.routes");
-const userRoutes = require("./routes/auth.routes");
-const authMiddleware = require("./middleware/auth.middleware");
-const errHandler = require("./middleware/error.middleware");
-const errorHandler = require("./middleware/error.middleware");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import notesRouter from "./routes/notes.routes";
+import userRoutes from "./routes/auth.routes";
+import authMiddleware from "./middleware/auth.middleware";
+import errorHandler from "./middleware/error.middleware";
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 
