@@ -15,4 +15,4 @@ router.delete("/:id", deleteNote);
 
 router.put("/:id", updateNote);
 
-module.exports = router;
+export default router;

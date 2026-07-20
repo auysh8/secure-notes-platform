@@ -1,6 +1,17 @@
 import mongoose from "mongoose";
 
-const noteSchema = new mongoose.Schema({
+export interface INote extends Document {
+  userId: string;
+  title: string;
+  content: string;
+  color: string;
+  isPinned: boolean;
+  isArchived: boolean;
+  lastEdited: Date;
+  isTrashed: boolean;
+}
+
+const noteSchema = new mongoose.Schema<INote>({
   userId: { type: String, required: true },
   title: {
     type: String,
@@ -32,4 +43,4 @@ const noteSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+export default mongoose.model<INote>("Note", noteSchema);

@@ -2,8 +2,9 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user.model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { Request, Response } from "express";
 
-const login = asyncHandler(async (req, res) => {
+const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
@@ -16,13 +17,13 @@ const login = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Wrong password");
   }
-  const token = jwt.sign({ id: existingUser.id }, process.env.JWT, {
+  const token = jwt.sign({ id: existingUser.id }, process.env.JWT as string, {
     expiresIn: "7d",
   });
   res.status(200).json({ token, name, message: "User loged in" });
 });
 
-const register = asyncHandler(async (req, res) => {
+const register = asyncHandler(async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -35,4 +36,4 @@ const register = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "User registered" });
 });
 
-module.exports = { login, register };
+export { login, register };

@@ -1,4 +1,11 @@
-const errorHandler = (err, req, res, next) => {
+import { Response, Request, NextFunction } from "express";
+
+const errorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   console.error(err.stack);
   const statusCode = err.status || 500;
   res
@@ -6,4 +13,4 @@ const errorHandler = (err, req, res, next) => {
     .json({ message: err.message || "Internal server error" });
 };
 
-module.exports = errorHandler;
+export default errorHandler;

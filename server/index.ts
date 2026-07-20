@@ -5,13 +5,13 @@ import notesRouter from "./routes/notes.routes";
 import userRoutes from "./routes/auth.routes";
 import authMiddleware from "./middleware/auth.middleware";
 import errorHandler from "./middleware/error.middleware";
-
+import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI as string)
   .then(() => console.log("Database connected"))
   .catch((err) => console.error("Database connection error", err));
 
