@@ -1,10 +1,9 @@
 /* --- 1. The Grid Container --- */
 .notesContainer {
   /* Layout: Masonry */
-  columns: 5 240px; /* Tries to fit 5 cols, but maintains min 240px width */
-  column-gap: 20px; /* Space between columns */
+
   padding: 24px;    /* Breathing room around the edges */
-  
+
   /* ⚡ Centering Anchors */
   position: relative; 
   min-height: 80vh; /* Ensures center is vertically centered on screen */
@@ -82,11 +81,11 @@
 
 /* --- 6. Responsive Breakpoints --- */
 @media (max-width: 1200px) {
-  .notesContainer { columns: 3 220px; }
+  .notes_Container { columns: 3 220px; }
 }
 
 @media (max-width: 768px) {
-  .notesContainer { 
+  .notes_Container { 
     columns: 2 180px; 
     padding: 16px;
   }
@@ -97,11 +96,27 @@
 }
 
 @media (max-width: 480px) {
-  .notesContainer { 
+  .notes_Container { 
     columns: 1 auto; /* Single column stack */
   }
   
   .empty_state img {
     width: 200px;
   }
+}
+
+.notes_container{
+  columns: 5 240px; /* Tries to fit 5 cols, but maintains min 240px width */
+  column-gap: 20px; /* Space between columns */
+}
+
+.notes_category{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category_head{
+  font-size: large;
+  font-weight: 700;
 }
