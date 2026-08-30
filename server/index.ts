@@ -21,7 +21,6 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://auysh8.github.io",
       /\.vercel\.app$/,
     ],
     credentials: true,

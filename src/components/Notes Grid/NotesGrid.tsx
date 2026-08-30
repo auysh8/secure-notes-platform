@@ -27,6 +27,8 @@ const NotesGrid = ({
   restoreId,
   deleteId,
 }: NotesGridProps) => {
+  const pinnedNotes = notes.filter((note) => note.isPinned === true);
+  const otherNotes = notes.filter((note) => !note.isPinned);
   return (
     <div className={styles.notesContainer}>
       {Object.keys(notes).length == 0 && tab == "notes" ? (
@@ -60,33 +62,92 @@ const NotesGrid = ({
         </div>
       ) : null}
       <AnimatePresence mode="popLayout">
-        {notes.map((note) => (
-          <motion.div
-            key={note._id}
-            layout
-            layoutId={`note-${note._id}`}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              opacity: { duration: 0.2 },
-            }}
-            className={styles.noteItem}
-          >
-            <Notes
-              onClick={() => onClick(note._id)}
-              noteData={note}
-              archiveId={archiveId}
-              pinId={pinId}
-              trashId={trashId}
-              restoreId={restoreId}
-              deleteId={deleteId}
-            />
-          </motion.div>
-        ))}
+        {pinnedNotes.length > 0 ? (
+          <div className={styles.notes_category}>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className={styles.category_head}
+            >
+              Pinned notes
+            </motion.span>
+            <div className={styles.notes_container}>
+              {pinnedNotes.map((note) => (
+                <motion.div
+                  key={note._id}
+                  layout
+                  layoutId={`note-${note._id}`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                    opacity: { duration: 0.2 },
+                  }}
+                  className={styles.noteItem}
+                >
+                  <Notes
+                    onClick={() => onClick(note._id)}
+                    noteData={note}
+                    archiveId={archiveId}
+                    pinId={pinId}
+                    trashId={trashId}
+                    restoreId={restoreId}
+                    deleteId={deleteId}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {otherNotes.length > 0 ? (
+          <div className={styles.notes_category}>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className={styles.category_head}
+            >
+              All notes
+            </motion.span>
+            <div className={styles.notes_container}>
+              {otherNotes.map((note) => (
+                <motion.div
+                  key={note._id}
+                  layout
+                  layoutId={`note-${note._id}`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                    opacity: { duration: 0.2 },
+                  }}
+                  className={styles.noteItem}
+                >
+                  <Notes
+                    onClick={() => onClick(note._id)}
+                    noteData={note}
+                    archiveId={archiveId}
+                    pinId={pinId}
+                    trashId={trashId}
+                    restoreId={restoreId}
+                    deleteId={deleteId}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </AnimatePresence>
     </div>
   );
