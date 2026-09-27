@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SearchBar.module.css";
 import { useHotkeys } from "react-hotkeys-hook";
+import { IoSearch } from "react-icons/io5";
 
 interface SearchBarProps {
   input: (value: string) => void;
@@ -23,13 +24,16 @@ const SearchBar = ({ input }: SearchBarProps) => {
   });
   return (
     <div className={styles.search_bar}>
-      <input
-        ref={inputRef}
-        className={styles.input_area}
-        type="text"
-        placeholder="Search notes"
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
+      <div className={styles.search_bar_container}>
+        <IoSearch color="#6d6b6b"/>
+        <input
+          ref={inputRef}
+          className={styles.input_area}
+          type="text"
+          placeholder="Search notes"
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+      </div>
     </div>
   );
 };
