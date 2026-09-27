@@ -2,7 +2,7 @@ import axios from "axios";
 import type { NewNote } from "../types";
 
 const apiClient = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/notes`,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/notes`,
 });
 
 apiClient.interceptors.request.use((config) => {

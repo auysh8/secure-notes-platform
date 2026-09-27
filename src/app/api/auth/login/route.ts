@@ -38,4 +38,4 @@ const POST = async (req: NextRequest) => {
   }
 };
 
-export default POST;
+export { POST };

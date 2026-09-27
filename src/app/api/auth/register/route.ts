@@ -20,8 +20,11 @@ const POST = async (req: NextRequest) => {
     return NextResponse.json({ message: "User Register" }, { status: 201 });
   } catch (error) {
     console.error("Internal Server Error");
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 
-export default POST;
+export { POST };

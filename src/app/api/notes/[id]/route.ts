@@ -15,9 +15,9 @@ const PUT = async (
         { status: 401 },
       );
     }
-    const id = await params;
+    const { id } = await params;
     await connectDB();
-    const body = req.json();
+    const body = await req.json();
     const updatedNote = await Note.findOneAndUpdate({ _id: id, userId }, body, {
       new: true,
     });
@@ -52,9 +52,9 @@ const DELETE = async (
         { status: 401 },
       );
     }
-    const id = await params;
+    const { id } = await params;
     await connectDB();
-    const deletedNote = Note.findOneAndDelete({ _id: id, userId });
+    const deletedNote = await Note.findOneAndDelete({ _id: id, userId });
     if (!deletedNote) {
       return NextResponse.json(
         { message: "Unable to delete the note" },
@@ -71,4 +71,4 @@ const DELETE = async (
   }
 };
 
-export default { PUT, DELETE };
+export { PUT, DELETE };

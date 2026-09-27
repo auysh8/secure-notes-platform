@@ -73,4 +73,4 @@ const POST = async (req: NextRequest) => {
   }
 };
 
-export default { POST, GET };
+export { POST, GET };
