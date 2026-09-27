@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Logo from "../Logo/Logo";
 import { useEffect, useState } from "react";
 import NewNoteButton from "../New Note Button/NewNoteButton";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface SidebarProps {
   onClick: (value: string) => void;
@@ -17,7 +17,7 @@ interface SidebarProps {
 
 const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
   const userName = localStorage.getItem("name") || "User";
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
     !window.matchMedia("(min-width : 1024px)").matches,
   );
@@ -39,7 +39,7 @@ const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
-    navigate("/login");
+    router.push("/login");
   };
 
   return (

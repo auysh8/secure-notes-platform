@@ -1,17 +1,18 @@
+"use client";
 import { useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
-import SearchBar from "../components/Search bar/SearchBar";
-import styles from "./Dashboard.module.css"
-import NoteGrid from "../components/Notes Grid/NotesGrid";
-import NoteEdit from "../components/Note Edit View/NoteEdit";
-import { useNavigate, useLocation } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import SearchBar from "../../components/Search bar/SearchBar";
+import styles from "./Dashboard.module.css";
+import NoteGrid from "../../components/Notes Grid/NotesGrid";
+import NoteEdit from "../../components/Note Edit View/NoteEdit";
+import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
-import type { Note } from "../types";
-import { useNotes } from "../hooks/useNotes";
+import type { Note } from "../../types";
+import { useNotes } from "../../hooks/useNotes";
 const Dashboard = () => {
   const [searchInput, setSearchInput] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const {
     notes,
     isNoteView,
@@ -29,7 +30,7 @@ const Dashboard = () => {
   } = useNotes();
 
   const activeTab =
-    location.pathname === "/" ? "notes" : location.pathname.substring(1);
+    pathname === "/" ? "notes" : pathname.substring(1);
 
   const handleSearchBar = (input: string) => {
     setSearchInput(input);
@@ -37,9 +38,9 @@ const Dashboard = () => {
 
   const handleSidebar = (tab: string) => {
     if (tab === "notes") {
-      navigate("/");
+      router.push("/");
     } else {
-      navigate(`/${tab}`);
+      router.push(`/${tab}`);
     }
   };
 

@@ -1,9 +1,6 @@
 import Notes from "./Notes";
 import styles from "./NotesGrid.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import empty_notes_state from "../../assets/Notes.svg";
-import empty_archive_state from "../../assets/Archive.svg";
-import empty_trash_state from "../../assets/Trash.svg";
 import type { Note } from "../../types";
 
 interface NotesGridProps {
@@ -33,7 +30,7 @@ const NotesGrid = ({
     <div className={styles.notesContainer}>
       {Object.keys(notes).length == 0 && tab == "notes" ? (
         <div className={styles.empty_state}>
-          <img src={empty_notes_state} alt="" />
+          <img src="/Notes.svg" alt="" />
           <h2 className={styles.empty_title}>Your thoughts start here</h2>
           <p className={styles.empty_desc}>
             Capture ideas, organize tasks, and keep track of your daily
@@ -43,7 +40,7 @@ const NotesGrid = ({
       ) : null}
       {Object.keys(notes).length == 0 && tab == "archive" ? (
         <div className={styles.empty_state}>
-          <img src={empty_archive_state} alt="No Notes" />
+          <img src="/Archive.svg" alt="No Notes" />
           <h2 className={styles.empty_title}>A quiet place</h2>
           <p className={styles.empty_desc}>
             Select notes you don't need right now but want to keep for later.
@@ -53,7 +50,7 @@ const NotesGrid = ({
       ) : null}
       {Object.keys(notes).length == 0 && tab == "trash" ? (
         <div className={styles.empty_state}>
-          <img src={empty_trash_state} alt="No Notes" />
+          <img src="/Trash.svg" alt="No Notes" />
           <h2 className={styles.empty_title}>Trash is empty</h2>
           <p className={styles.empty_desc}>
             Notes you delete move here. You can restore them anytime or delete

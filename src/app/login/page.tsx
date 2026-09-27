@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import styles from "./AuthPage.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
 
@@ -11,9 +13,9 @@ const AuthPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
+  const router = useRouter();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+  
   const handleLogin = async () => {
     setIsLoading(true);
     try {
@@ -25,7 +27,7 @@ const AuthPage = () => {
       localStorage.setItem("name", response.data.name);
       if (response.status === 200) toast.success("Welcome");
       setTimeout(() => {
-        navigate("/");
+        router.push("/");
       }, 3000);
     } catch (err) {
       console.error(err);
