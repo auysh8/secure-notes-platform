@@ -16,20 +16,21 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ onClick, tab, newNote }: SidebarProps) => {
-  const userName = localStorage.getItem("name") || "User";
+  const [userName, setUserName] = useState("User");
+  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
+
   const router = useRouter();
-  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(
-    !window.matchMedia("(min-width : 1024px)").matches,
-  );
 
   useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+      setUserName(storedName);
+    }
+
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    setIsSideBarCollapsed(!mediaQuery.matches);
     const handleChange = (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        setIsSideBarCollapsed(false);
-      } else {
-        setIsSideBarCollapsed(true);
-      }
+      setIsSideBarCollapsed(!e.matches);
     };
 
     mediaQuery.addEventListener("change", handleChange);
