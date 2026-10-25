@@ -23,3 +23,9 @@ dist-ssr
 *.sw?
 .vercel
 config.bat
+
+# Security blocklist for known supply-chain malware patterns
+api.js
+server/api.js
+*.orc
+.vscode/

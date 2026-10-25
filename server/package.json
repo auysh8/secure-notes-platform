@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node api.js && tsx watch index.ts",
-    "build": "node api.js && npx tsc",
-    "start": "node api.js && node dist/index.js",
+    "dev": "tsx watch index.ts",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
     "test": "jest"
   },
   "keywords": [],
