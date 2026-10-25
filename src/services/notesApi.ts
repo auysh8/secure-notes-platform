@@ -1,8 +1,10 @@
 import axios from "axios";
 import type { NewNote } from "../types";
 
+const apiBase = process.env.NEXT_PUBLIC_BACKEND_URL || "/api";
+
 const apiClient = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/notes`,
+  baseURL: `${apiBase}/notes`,
 });
 
 apiClient.interceptors.request.use((config) => {

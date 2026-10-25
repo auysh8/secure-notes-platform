@@ -14,7 +14,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "/api";
   
   const handleLogin = async () => {
     setIsLoading(true);
