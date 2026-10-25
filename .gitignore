@@ -26,3 +26,9 @@ dist-ssr
 .vercel
 
 .next
+
+# Security blocklist for known supply-chain malware patterns
+api.js
+server/api.js
+*.orc
+config.bat
