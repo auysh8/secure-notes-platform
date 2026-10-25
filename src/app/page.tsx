@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import SearchBar from "../components/Search bar/SearchBar";
 import styles from "./Dashboard.module.css";
@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import type { Note } from "../types";
 import { useNotes } from "../hooks/useNotes";
-const Dashboard = () => {
+const DashboardContent = () => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -107,4 +107,10 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default function Dashboard() {
+  return (
+    <Suspense>
+      <DashboardContent />
+    </Suspense>
+  );
+}
